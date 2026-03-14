@@ -214,20 +214,20 @@ describe('parameterized SQL registration', () => {
 
 describe('file templating', () => {
   it('replaces assistant name in CLAUDE.md content', () => {
-    let content = '# Andy\n\nYou are Andy, a personal assistant.';
+    let content = '# Andy\n\nYou are Gherkin, a personal assistant.';
 
     content = content.replace(/^# Andy$/m, '# Nova');
-    content = content.replace(/You are Andy/g, 'You are Nova');
+    content = content.replace(/You are Gherkin/g, 'You are Nova');
 
     expect(content).toBe('# Nova\n\nYou are Nova, a personal assistant.');
   });
 
   it('handles names with special regex characters', () => {
-    let content = '# Andy\n\nYou are Andy.';
+    let content = '# Andy\n\nYou are Gherkin.';
 
     const newName = 'C.L.A.U.D.E';
     content = content.replace(/^# Andy$/m, `# ${newName}`);
-    content = content.replace(/You are Andy/g, `You are ${newName}`);
+    content = content.replace(/You are Gherkin/g, `You are ${newName}`);
 
     expect(content).toContain('# C.L.A.U.D.E');
     expect(content).toContain('You are C.L.A.U.D.E.');
