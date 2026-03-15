@@ -230,8 +230,15 @@ export class TelegramChannel implements Channel {
         ctx.from?.id?.toString() ||
         'Unknown';
 
-      const isGroup = ctx.chat.type === 'group' || ctx.chat.type === 'supergroup';
-      this.opts.onChatMetadata(chatJid, timestamp, undefined, 'telegram', isGroup);
+      const isGroup =
+        ctx.chat.type === 'group' || ctx.chat.type === 'supergroup';
+      this.opts.onChatMetadata(
+        chatJid,
+        timestamp,
+        undefined,
+        'telegram',
+        isGroup,
+      );
 
       let content = caption ? `[Photo] ${caption}` : '[Photo]';
       try {
@@ -243,11 +250,17 @@ export class TelegramChannel implements Channel {
           const processed = await processImage(buffer, groupDir, caption);
           if (processed) {
             content = processed.content;
-            logger.info({ chatJid, file: processed.relativePath }, 'Processed Telegram photo');
+            logger.info(
+              { chatJid, file: processed.relativePath },
+              'Processed Telegram photo',
+            );
           }
         }
       } catch (err) {
-        logger.warn({ chatJid, err }, 'Failed to download/process Telegram photo');
+        logger.warn(
+          { chatJid, err },
+          'Failed to download/process Telegram photo',
+        );
       }
 
       this.opts.onMessage(chatJid, {
