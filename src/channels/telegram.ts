@@ -331,8 +331,9 @@ export class TelegramChannel implements Channel {
         }
       } else {
         const name = doc.file_name || 'file';
-        content =
-          caption ? `[Document: ${name}] ${caption}` : `[Document: ${name}]`;
+        content = caption
+          ? `[Document: ${name}] ${caption}`
+          : `[Document: ${name}]`;
       }
 
       this.opts.onMessage(chatJid, {
